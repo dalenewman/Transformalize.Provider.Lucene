@@ -60,8 +60,6 @@ namespace IntegrationTests {
                     controller.Execute();
 
                     Assert.AreEqual(process.Entities.First().Inserts, (uint)1000);
-
-
                 }
             }
         }
