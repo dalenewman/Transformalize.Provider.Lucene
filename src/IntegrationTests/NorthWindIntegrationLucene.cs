@@ -20,7 +20,6 @@ using System;
 using System.IO;
 using System.Linq;
 using Autofac;
-using BootStrapper;
 using Dapper;
 using Lucene.Net.Index;
 using Lucene.Net.Search;
@@ -28,8 +27,10 @@ using Lucene.Net.Store;
 using Lucene.Net.Util;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Transformalize.Configuration;
+using Transformalize.Containers.Autofac;
 using Transformalize.Contracts;
 using Transformalize.Providers.Console;
+using Transformalize.Providers.Lucene.Autofac;
 using Transformalize.Providers.SqlServer;
 
 namespace IntegrationTests {
@@ -52,7 +53,7 @@ namespace IntegrationTests {
         };
 
         [TestMethod]
-        [Ignore] // until SqlServer provider is plugin (or has it's own SqlServerModule)
+        [Ignore] // not tested yet
         public void Lucene_Integration() {
 
             // CORRECT DATA AND INITIAL LOAD
@@ -65,7 +66,7 @@ namespace IntegrationTests {
             }
 
             using (var outer = new ConfigurationContainer().CreateScope(TestFile + "?Mode=init")) {
-                using (var inner = new TestContainer().CreateScope(outer, new ConsoleLogger(LogLevel.Debug))) {
+                using (var inner = new TestContainer(new LuceneModule()).CreateScope(outer, new ConsoleLogger(LogLevel.Debug))) {
                     var controller = inner.Resolve<IProcessController>();
                     controller.Execute();
                 }
