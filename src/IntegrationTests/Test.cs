@@ -16,9 +16,9 @@
 // limitations under the License.
 #endregion
 
-using System.Linq;
 using Autofac;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 using Transformalize.Configuration;
 using Transformalize.Containers.Autofac;
 using Transformalize.Contracts;
@@ -28,12 +28,12 @@ using Transformalize.Providers.Lucene.Autofac;
 
 namespace IntegrationTests {
 
-    [TestClass]
-    public class Test {
+   [TestClass]
+   public class Test {
 
-        [TestMethod]
-        public void Write() {
-            const string xml = @"<add name='TestProcess' mode='init'>
+      [TestMethod]
+      public void Write() {
+         const string xml = @"<add name='TestProcess' mode='init'>
   <parameters>
     <add name='Size' type='int' value='1000' />
     <add name='DriveLetter' type='char' value='c' />
@@ -53,22 +53,22 @@ namespace IntegrationTests {
     </add>
   </entities>
 </add>";
-            using (var outer = new ConfigurationContainer().CreateScope(xml)) {
-                using (var inner = new TestContainer(new BogusModule(), new LuceneModule()).CreateScope(outer, new ConsoleLogger(LogLevel.Debug))) {
+         var logger = new ConsoleLogger(LogLevel.Debug);
+         using (var outer = new ConfigurationContainer().CreateScope(xml, logger)) {
+            var process = outer.Resolve<Process>();
+            using (var inner = new TestContainer(new BogusModule(), new LuceneModule()).CreateScope(process, logger)) {
 
-                    var process = inner.Resolve<Process>();
+               var controller = inner.Resolve<IProcessController>();
+               controller.Execute();
 
-                    var controller = inner.Resolve<IProcessController>();
-                    controller.Execute();
-
-                    Assert.AreEqual(process.Entities.First().Inserts, (uint)1000);
-                }
+               Assert.AreEqual(process.Entities.First().Inserts, (uint)1000);
             }
-        }
+         }
+      }
 
-        [TestMethod]
-        public void Read() {
-            const string xml = @"<add name='TestProcess'>
+      [TestMethod]
+      public void Read() {
+         const string xml = @"<add name='TestProcess'>
   <parameters>
     <add name='DriveLetter' type='char' value='c' />
   </parameters>
@@ -87,20 +87,20 @@ namespace IntegrationTests {
     </add>
   </entities>
 </add>";
-            using (var outer = new ConfigurationContainer().CreateScope(xml)) {
-                using (var inner = new TestContainer(new BogusModule(), new LuceneModule()).CreateScope(outer, new ConsoleLogger(LogLevel.Debug))) {
+         var logger = new ConsoleLogger(LogLevel.Debug);
+         using (var outer = new ConfigurationContainer().CreateScope(xml, logger)) {
+            var process = outer.Resolve<Process>();
+            using (var inner = new TestContainer(new BogusModule(), new LuceneModule()).CreateScope(process, logger)) {
 
-                    var process = inner.Resolve<Process>();
+               var controller = inner.Resolve<IProcessController>();
+               controller.Execute();
+               var rows = process.Entities.First().Rows;
 
-                    var controller = inner.Resolve<IProcessController>();
-                    controller.Execute();
-                    var rows = process.Entities.First().Rows;
-
-                    Assert.AreEqual(1000, rows.Count);
+               Assert.AreEqual(1000, rows.Count);
 
 
-                }
             }
-        }
-    }
+         }
+      }
+   }
 }

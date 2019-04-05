@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Transformalize.Providers.Lucene.Autofac</RootNamespace>
     <AssemblyName>Transformalize.Provider.Lucene.Autofac</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -22,13 +23,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>none</DebugType>
+    <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac, Version=4.6.2.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
@@ -40,8 +42,8 @@
     <Reference Include="Cfg.Net.Shorthand, Version=0.2.11.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Cfg-NET.Shorthand.0.2.11\lib\portable-net45+win8+wpa81+wp8\Cfg.Net.Shorthand.dll</HintPath>
     </Reference>
-    <Reference Include="CfgNet, Version=0.10.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Cfg-NET.0.10.2\lib\net452\CfgNet.dll</HintPath>
+    <Reference Include="CfgNet, Version=0.10.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Cfg-NET.0.10.4\lib\net462\CfgNet.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <HintPath>..\..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
@@ -51,8 +53,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="Transformalize, Version=0.3.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Transformalize.0.3.3-beta\lib\net452\Transformalize.dll</HintPath>
+    <Reference Include="Transformalize, Version=0.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Transformalize.0.5.0-beta\lib\net462\Transformalize.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -70,8 +72,14 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>set f="$(SolutionDir)..\Transformalize\Pipeline.Command\bin\x64\$(ConfigurationName)\plugins"
+    <PostBuildEvent>set f="$(SolutionDir)..\Transformalize\Pipeline.Command\plugins"
 
-if exist %25f%25 copy /Y "$(TargetDir)*.*" "%25f%25"</PostBuildEvent>
+if exist %25f%25 copy /Y "$(TargetDir)ICSharpCode.SharpZipLib.dll" "%25f%25"
+if exist %25f%25 copy /Y "$(TargetDir)Lucene.Net.*" "%25f%25"
+if exist %25f%25 copy /Y "$(TargetDir)Transformalize.Provider.Lucene.Autofac.dll" "%25f%25"
+if exist %25f%25 copy /Y "$(TargetDir)Transformalize.Provider.Lucene.Autofac.pdb" "%25f%25"
+if exist %25f%25 copy /Y "$(TargetDir)Transformalize.Provider.Lucene.dll" "%25f%25"
+if exist %25f%25 copy /Y "$(TargetDir)Transformalize.Provider.Lucene.pdb" "%25f%25"
+</PostBuildEvent>
   </PropertyGroup>
 </Project>
