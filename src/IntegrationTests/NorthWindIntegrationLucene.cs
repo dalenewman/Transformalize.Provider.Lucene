@@ -101,7 +101,7 @@ namespace IntegrationTests {
 
          using (var outer = new ConfigurationContainer().CreateScope(TestFile, logger)) {
             var process = outer.Resolve<Process>();
-            using (var inner = new TestContainer().CreateScope(process, logger)) {
+            using (var inner = new Container().CreateScope(process, logger)) {
                var controller = inner.Resolve<IProcessController>();
                controller.Execute();
             }
@@ -130,7 +130,7 @@ namespace IntegrationTests {
 
          using (var outer = new ConfigurationContainer().CreateScope(TestFile, logger)) {
             var process = outer.Resolve<Process>();
-            using (var inner = new TestContainer().CreateScope(process, logger)) {
+            using (var inner = new Container().CreateScope(process, logger)) {
                var controller = inner.Resolve<IProcessController>();
                controller.Execute();
             }

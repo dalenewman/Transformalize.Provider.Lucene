@@ -22,36 +22,36 @@ using Transformalize.Context;
 using Transformalize.Contracts;
 
 namespace Transformalize.Providers.Lucene {
-    public class LuceneInitializer : IInitializer {
-        private readonly OutputContext _output;
+   public class LuceneInitializer : IInitializer {
+      private readonly OutputContext _output;
 
-        public LuceneInitializer(OutputContext output) {
-            _output = output;
-        }
+      public LuceneInitializer(OutputContext output) {
+         _output = output;
+      }
 
-        public ActionResponse Execute() {
-            var response = new ActionResponse();
+      public ActionResponse Execute() {
+         var response = new ActionResponse();
 
-            try {
-                if (_output.Entity == null) {
-                    var directoryInfo = new DirectoryInfo(_output.Connection.Folder);
-                    if (directoryInfo.Exists) {
-                        _output.Info("Deleting lucene index at {0}.", directoryInfo.FullName);
-                        directoryInfo.Delete(true);
-                    }
-                } else {
-                    var directoryInfo = new DirectoryInfo(Path.Combine(_output.Connection.Folder, _output.Entity.Name));
-                    if (directoryInfo.Exists) {
-                        _output.Info("Deleting lucene index at {0}.", directoryInfo.FullName);
-                        directoryInfo.Delete(true);
-                    }
-                }
-
-            } catch (Exception ex) {
-                response.Code = 500;
-                response.Message = $"Could not delete {_output.Connection.Folder}. {ex.Message}";
+         try {
+            if (_output.Entity == null) {
+               var directoryInfo = new DirectoryInfo(_output.Connection.Folder);
+               if (directoryInfo.Exists) {
+                  _output.Info("Deleting lucene index at {0}.", directoryInfo.FullName);
+                  directoryInfo.Delete(true);
+               }
+            } else {
+               var directoryInfo = new DirectoryInfo(Path.Combine(_output.Connection.Folder, _output.Entity.Name));
+               if (directoryInfo.Exists) {
+                  _output.Info("Deleting lucene index at {0}.", directoryInfo.FullName);
+                  directoryInfo.Delete(true);
+               }
             }
-            return response;
-        }
-    }
+
+         } catch (Exception ex) {
+            response.Code = 500;
+            response.Message = $"Could not delete {_output.Connection.Folder}. {ex.Message}";
+         }
+         return response;
+      }
+   }
 }

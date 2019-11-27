@@ -167,9 +167,7 @@ namespace Transformalize.Providers.Lucene.Autofac {
                                     output,
                                     new LuceneInitializer(output), 
                                     ctx.ResolveNamed<IInputProvider>(entity.Key),
-                                    new LuceneOutputProvider(output, ctx.ResolveNamed<SearcherFactory>(entity.Key)),
-                                    ctx.ResolveNamed<SearcherFactory>(entity.Key),
-                                    ctx.ResolveNamed<IndexReaderFactory>(entity.Key)
+                                    new LuceneOutputProvider(output, ctx.ResolveNamed<SearcherFactory>(entity.Key))
                                 );
                             default:
                                 return new NullOutputController();

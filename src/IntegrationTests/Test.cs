@@ -31,6 +31,9 @@ namespace IntegrationTests {
    [TestClass]
    public class Test {
 
+      /// <summary>
+      /// Because of a bug in my code, this works every other time.  Something about not releasing a handle on the index _0.cfs file...
+      /// </summary>
       [TestMethod]
       public void Write() {
          const string xml = @"<add name='TestProcess' mode='init'>
@@ -56,12 +59,12 @@ namespace IntegrationTests {
          var logger = new ConsoleLogger(LogLevel.Debug);
          using (var outer = new ConfigurationContainer().CreateScope(xml, logger)) {
             var process = outer.Resolve<Process>();
-            using (var inner = new TestContainer(new BogusModule(), new LuceneModule()).CreateScope(process, logger)) {
+            using (var inner = new Container(new BogusModule(), new LuceneModule()).CreateScope(process, logger)) {
 
                var controller = inner.Resolve<IProcessController>();
                controller.Execute();
-
                Assert.AreEqual(process.Entities.First().Inserts, (uint)1000);
+
             }
          }
       }
@@ -90,7 +93,7 @@ namespace IntegrationTests {
          var logger = new ConsoleLogger(LogLevel.Debug);
          using (var outer = new ConfigurationContainer().CreateScope(xml, logger)) {
             var process = outer.Resolve<Process>();
-            using (var inner = new TestContainer(new BogusModule(), new LuceneModule()).CreateScope(process, logger)) {
+            using (var inner = new Container(new BogusModule(), new LuceneModule()).CreateScope(process, logger)) {
 
                var controller = inner.Resolve<IProcessController>();
                controller.Execute();

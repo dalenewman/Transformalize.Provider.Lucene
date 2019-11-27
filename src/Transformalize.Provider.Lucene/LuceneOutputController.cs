@@ -21,38 +21,32 @@ using Transformalize.Contracts;
 using Transformalize.Impl;
 
 namespace Transformalize.Providers.Lucene {
-    public class LuceneOutputController : BaseOutputController {
-        private readonly SearcherFactory _searcherFactory;
-        private readonly IndexReaderFactory _readerFactory;
-        private readonly Stopwatch _stopWatch;
+   public class LuceneOutputController : BaseOutputController {
+      private readonly Stopwatch _stopWatch;
 
-        public LuceneOutputController(
-            OutputContext context,
-            IAction initializer,
-            IInputProvider inputProvider,
-            IOutputProvider outputProvider,
-            SearcherFactory searcherFactory,
-            IndexReaderFactory readerFactory
-            ) : base(
-                context,
-                initializer,
-                inputProvider,
-                outputProvider
-                ) {
-            _searcherFactory = searcherFactory;
-            _readerFactory = readerFactory;
-            _stopWatch = new Stopwatch();
-        }
+      public LuceneOutputController(
+          OutputContext context,
+          IAction initializer,
+          IInputProvider inputProvider,
+          IOutputProvider outputProvider
+          ) : base(
+              context,
+              initializer,
+              inputProvider,
+              outputProvider
+              ) {
+         _stopWatch = new Stopwatch();
+      }
 
-        public override void End() {
-            _stopWatch.Stop();
-            Context.Info("Ending {0}", _stopWatch.Elapsed);
-        }
+      public override void End() {
+         _stopWatch.Stop();
+         Context.Info("Ending {0}", _stopWatch.Elapsed);
+      }
 
-        // get max tflbatchid, max tflkey
-        public override void Start() {
-            base.Start();
-        }
+      // get max tflbatchid, max tflkey
+      public override void Start() {
+         base.Start();
+      }
 
-    }
+   }
 }

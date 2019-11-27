@@ -23,17 +23,24 @@ using Transformalize.Context;
 using Transformalize.Contracts;
 
 namespace Transformalize.Providers.Lucene {
-    public class LuceneInputProvider : IInputProvider {
+    public class LuceneInputProvider : IInputProvider, IDisposable {
 
         private readonly InputContext _context;
         private readonly SearcherFactory _searcherFactory;
 
         public LuceneInputProvider(InputContext context, SearcherFactory searcherFactory) {
+
             _context = context;
             _searcherFactory = searcherFactory;
         }
 
-        public object GetMaxVersion() {
+      public void Dispose() {
+         if(_searcherFactory != null) {
+            _searcherFactory.Dispose();
+         }
+      }
+
+      public object GetMaxVersion() {
             if (string.IsNullOrEmpty(_context.Entity.Version))
                 return null;
 

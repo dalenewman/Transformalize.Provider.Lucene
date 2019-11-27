@@ -28,7 +28,7 @@ using Field = Transformalize.Configuration.Field;
 using LuceneField = Lucene.Net.Documents.Field;
 
 namespace Transformalize.Providers.Lucene {
-    public class LuceneWriter : IWrite {
+    public class LuceneWriter : IWrite, IDisposable {
 
         private readonly IndexWriterFactory _writerFactory;
         private readonly SearcherFactory _searcherFactory;
@@ -107,7 +107,13 @@ namespace Transformalize.Providers.Lucene {
             return abstractField;
         }
 
-        public void Write(IEnumerable<IRow> rows) {
+      public void Dispose() {
+         if(_searcherFactory != null) {
+            _searcherFactory.Dispose();
+         }
+      }
+
+      public void Write(IEnumerable<IRow> rows) {
             var tflKey = _output.Entity.TflKey();
             using (var searcher = _searcherFactory.Create()) {
                 using (var writer = _writerFactory.Create()) {

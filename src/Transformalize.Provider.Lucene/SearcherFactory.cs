@@ -15,18 +15,29 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 #endregion
+using Lucene.Net.Index;
 using Lucene.Net.Search;
+using System;
 
 namespace Transformalize.Providers.Lucene {
-    public class SearcherFactory {
-        private readonly IndexReaderFactory _readerFactory;
+   public class SearcherFactory : IDisposable {
+      private readonly IndexReaderFactory _readerFactory;
+      private IndexReader _reader;
 
-        public SearcherFactory(IndexReaderFactory readerFactory) {
-            _readerFactory = readerFactory;
-        }
+      public SearcherFactory(IndexReaderFactory readerFactory) {
+         _readerFactory = readerFactory;
+      }
 
-        public Searcher Create() {
-            return new IndexSearcher(_readerFactory.Create());
-        }
-    }
+      public Searcher Create() {
+         _reader = _readerFactory.Create();
+         return new IndexSearcher(_reader);
+      }
+
+      public void Dispose() {
+         if(_reader != null) {
+            _reader.Close();
+            _reader.Dispose();
+         }
+      }
+   }
 }
