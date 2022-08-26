@@ -1,8 +1,6 @@
 ### Overview
 
-This adds a `lucene` provider to Transformalize using [Lucene.Net](https://lucenenet.apache.org).  It is a plug-in compatible with Transformalize 0.3.3-beta.
-
-Build the Autofac project and put it's output into Transformalize's *plugins* folder.
+This adds a `lucene` provider to Transformalize using [Lucene.Net](https://lucenenet.apache.org).
 
 ### Write Usage
 
