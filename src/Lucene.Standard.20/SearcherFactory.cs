@@ -1,7 +1,7 @@
 ﻿#region license
 // Transformalize
 // Configurable Extract, Transform, and Load
-// Copyright 2013-2017 Dale Newman
+// Copyright 2013-2022 Dale Newman
 //  
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ using Lucene.Net.Search;
 using System;
 
 namespace Transformalize.Providers.Lucene {
-   public class SearcherFactory : IDisposable {
+   public class SearcherFactory : System.IDisposable {
       private readonly IndexReaderFactory _readerFactory;
       private IndexReader _reader;
 
@@ -28,14 +28,13 @@ namespace Transformalize.Providers.Lucene {
          _readerFactory = readerFactory;
       }
 
-      public Searcher Create() {
+      public IndexSearcher Create() {
          _reader = _readerFactory.Create();
          return new IndexSearcher(_reader);
       }
 
       public void Dispose() {
          if(_reader != null) {
-            _reader.Close();
             _reader.Dispose();
          }
       }

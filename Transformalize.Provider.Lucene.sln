@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2036
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C4563C88-9C80-4BD0-949E-AA64F111957E}"
 	ProjectSection(SolutionItems) = preProject
@@ -16,11 +16,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuget", "nuget", "{8FE1844F
 		nuget\Transformalize.Provider.Lucene.nuspec = nuget\Transformalize.Provider.Lucene.nuspec
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transformalize.Provider.Lucene", "src\Transformalize.Provider.Lucene\Transformalize.Provider.Lucene.csproj", "{4ED1E259-756A-40B8-9800-F563B59E0206}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lucene.Standard.20", "src\Lucene.Standard.20\Lucene.Standard.20.csproj", "{D26B587B-C2AC-481F-BD28-240EB4DAF25C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transformalize.Provider.Lucene.Autofac", "src\Transformalize.Provider.Lucene.Autofac\Transformalize.Provider.Lucene.Autofac.csproj", "{CD3477B9-14E5-4EA3-90B0-CA9299BCAE73}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lucene.Autofac.Standard.20", "src\Lucene.Autofac.Standard.20\Lucene.Autofac.Standard.20.csproj", "{1F3272D2-1412-4E04-93F0-E245850C1109}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTests", "src\IntegrationTests\IntegrationTests.csproj", "{058FAE31-0608-48F8-84E4-04C3398689C1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Integration", "src\Test.Integration\Test.Integration.csproj", "{14371738-0E2E-4F90-A200-438DA200FE89}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,18 +28,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4ED1E259-756A-40B8-9800-F563B59E0206}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4ED1E259-756A-40B8-9800-F563B59E0206}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4ED1E259-756A-40B8-9800-F563B59E0206}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4ED1E259-756A-40B8-9800-F563B59E0206}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CD3477B9-14E5-4EA3-90B0-CA9299BCAE73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CD3477B9-14E5-4EA3-90B0-CA9299BCAE73}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CD3477B9-14E5-4EA3-90B0-CA9299BCAE73}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CD3477B9-14E5-4EA3-90B0-CA9299BCAE73}.Release|Any CPU.Build.0 = Release|Any CPU
-		{058FAE31-0608-48F8-84E4-04C3398689C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{058FAE31-0608-48F8-84E4-04C3398689C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{058FAE31-0608-48F8-84E4-04C3398689C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{058FAE31-0608-48F8-84E4-04C3398689C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D26B587B-C2AC-481F-BD28-240EB4DAF25C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D26B587B-C2AC-481F-BD28-240EB4DAF25C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D26B587B-C2AC-481F-BD28-240EB4DAF25C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D26B587B-C2AC-481F-BD28-240EB4DAF25C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F3272D2-1412-4E04-93F0-E245850C1109}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F3272D2-1412-4E04-93F0-E245850C1109}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F3272D2-1412-4E04-93F0-E245850C1109}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F3272D2-1412-4E04-93F0-E245850C1109}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14371738-0E2E-4F90-A200-438DA200FE89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14371738-0E2E-4F90-A200-438DA200FE89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14371738-0E2E-4F90-A200-438DA200FE89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14371738-0E2E-4F90-A200-438DA200FE89}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <Version>0.10.5-beta</Version>
+    <FileVersion>0.10.5</FileVersion>
+    <AssemblyVersion>0.10.5</AssemblyVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Files\NorthWindSqlServerToLucene.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Files\NorthWindSqlServerToLucene.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.2.8" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.2.8" />
+    <PackageReference Include="coverlet.collector" Version="3.1.2" />
+    <PackageReference Include="Transformalize.Provider.Bogus.Autofac" Version="0.10.0-beta" />
+    <PackageReference Include="Transformalize.Provider.Console.Autofac" Version="0.10.5-beta" />
+    <PackageReference Include="Transformalize.Provider.SqlServer.Autofac" Version="0.10.1-beta" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Lucene.Autofac.Standard.20\Lucene.Autofac.Standard.20.csproj" />
+    <ProjectReference Include="..\Lucene.Standard.20\Lucene.Standard.20.csproj" />
+  </ItemGroup>
+
+</Project>

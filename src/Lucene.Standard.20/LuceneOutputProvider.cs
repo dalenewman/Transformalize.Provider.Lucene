@@ -25,7 +25,7 @@ namespace Transformalize.Providers.Lucene {
    public class LuceneOutputProvider : IOutputProvider {
 
       private readonly OutputContext _context;
-      private readonly Searcher _searcher;
+      private IndexSearcher _searcher;
       private readonly SearcherFactory _searcherFactory;
 
       public LuceneOutputProvider(OutputContext context, SearcherFactory searcherFactory) {
@@ -48,7 +48,7 @@ namespace Transformalize.Providers.Lucene {
          _context.Debug(() => $"Detecting max output version: {_context.Connection.Folder}.{_context.Entity.Alias}.{version.Alias}.");
 
          var tflDeleted = _context.Entity.TflDeleted();
-         var sort = new Sort(new SortField(version.Alias, LuceneConversion.TypeSort(version.Type), true));
+         var sort = new Sort(new SortField(version.Alias, LuceneConversion.GetSortFieldType(version.Type), true));
          var hits = _searcher.Search(LuceneConversion.TypeSearch(tflDeleted, tflDeleted.Alias, false), null, 1, sort);
 
          if (hits.TotalHits > 0) {
@@ -70,7 +70,7 @@ namespace Transformalize.Providers.Lucene {
          var tflBatchId = _context.Entity.TflBatchId();
          var tflKey = _context.Entity.TflKey();
          var batchHits = _searcher.Search(new MatchAllDocsQuery(), null, 1,
-             new Sort(new SortField(tflBatchId.Alias, LuceneConversion.TypeSort(tflBatchId.Type), true))
+             new Sort(new SortField(tflBatchId.Alias, LuceneConversion.GetSortFieldType(tflBatchId.Type), true))
          );
          return (batchHits.TotalHits > 0 ? Convert.ToInt32(_searcher.Doc(batchHits.ScoreDocs[0].Doc).Get(tflBatchId.Alias)) : 0) + 1;
       }
@@ -79,7 +79,7 @@ namespace Transformalize.Providers.Lucene {
          var tflBatchId = _context.Entity.TflBatchId();
          var tflKey = _context.Entity.TflKey();
          var keyHits = _searcher.Search(new MatchAllDocsQuery(), null, 1,
-             new Sort(new SortField(tflKey.Alias, LuceneConversion.TypeSort(tflKey.Type), true))
+             new Sort(new SortField(tflKey.Alias, LuceneConversion.GetSortFieldType(tflKey.Type), true))
          );
          return (keyHits.TotalHits > 0 ? Convert.ToInt32(_searcher.Doc(keyHits.ScoreDocs[0].Doc).Get(tflKey.Alias)) : 0);
       }
@@ -106,7 +106,7 @@ namespace Transformalize.Providers.Lucene {
 
       public void Dispose() {
          if (_searcher != null) {
-            _searcher.Dispose();
+            _searcher = null;
          }
          if (_searcherFactory != null) {
             _searcherFactory.Dispose();

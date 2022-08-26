@@ -15,30 +15,28 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 #endregion
-using Lucene.Net.Analysis;
 using Lucene.Net.Index;
 
 namespace Transformalize.Providers.Lucene {
-
-    /// <summary>
-    /// A factory is needed here because we don't want to instantiate the index reader at composition root.
-    /// This factory will create an IndexReader and apply default locks when it does.
-    /// </summary>
-    public class IndexWriterFactory {
+    public class IndexReaderFactory {
         private readonly DirectoryFactory _directoryFactory;
-        private readonly Analyzer _analyzer;
+        private readonly IndexWriterFactory _writerFactory;
 
-        public IndexWriterFactory(DirectoryFactory directoryFactory, Analyzer analyzer) {
+        public IndexReaderFactory(DirectoryFactory directoryFactory, IndexWriterFactory writerFactory) {
             _directoryFactory = directoryFactory;
-            _analyzer = analyzer;
+            _writerFactory = writerFactory;
         }
 
-        /// <summary>
-        /// Always create and use in `using` construct.  This must be disposed of.
-        /// </summary>
-        /// <returns></returns>
-        public IndexWriter Create() {
-            return new IndexWriter(_directoryFactory.Create(), _analyzer, IndexWriter.MaxFieldLength.UNLIMITED);
+        public IndexReader Create() {
+            var directory = _directoryFactory.Create();
+            if (DirectoryReader.IndexExists(directory))
+                return DirectoryReader.Open(directory);
+
+            //create an index and then open
+            using (var writer = _writerFactory.Create()) {
+                writer.Commit();
+            }
+            return DirectoryReader.Open(_directoryFactory.Create());
         }
     }
 }
